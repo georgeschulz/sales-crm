@@ -2,6 +2,7 @@ import './App.css';
 import './output.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/login';
+import PipelinePage from './pages/pipeline';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path='/pipeline/:pipelineId' element={<PipelinePage />} />
         </Routes>
       </Router>
 

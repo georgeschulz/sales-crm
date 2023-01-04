@@ -13,7 +13,7 @@ function Login() {
 
     const handleSubmit = () => {
         if(email && password) {
-            navigate('/pipeline');
+            navigate('/pipeline/1');
         } else {
             alert('Please enter your email and password')
         }
