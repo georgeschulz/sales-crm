@@ -2,7 +2,7 @@ import './App.css';
 import './output.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/login';
-import PipelinePage from './pages/pipeline';
+import PipelinePage from './pages/PipelinePage';
 
 function App() {
   return (

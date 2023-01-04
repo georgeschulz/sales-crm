@@ -1,0 +1,8 @@
+.react-trello-lane div {
+    width: 100%;
+    padding: 0px 5px;
+}
+
+.react-trello-card {
+    max-width: 500px !important;
+}
