@@ -1,5 +1,6 @@
 const { createLead } = require('../model/createLead');
 const { getPipelineStructure } = require('../model/getPipelineStructure');
+const { getLead } = require('../model/getLead');
 
 const createLeadController = async (req, res) => {
     try {
@@ -31,6 +32,32 @@ const createLeadController = async (req, res) => {
     }
 }
 
+const readLeadController = async (req, res) => {
+    try {
+        const { leadId } = req.params;
+        const lead = await getLead(leadId);
+        if(lead) {
+            res.status(200).send({
+                message: 'Lead found',
+                data: lead
+            });
+        } else {
+            res.status(404).send({
+                message: 'Lead not found',
+                data: []
+            });
+        }
+    } catch (e) {
+        console.log(e);
+        res.status(500).send({
+            message: 'Error finding lead',
+            data: []
+        });
+    }
+}
+
+
 module.exports = {
-    createLeadController
+    createLeadController,
+    readLeadController
 }
