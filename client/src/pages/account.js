@@ -9,6 +9,7 @@ import InputCheckbox from "../components/form/inputCheckbox";
 import { selectAddress, selectFirstName, selectLastName, selectCity, selectZip, selectEmail, selectPhone, selectSource, selectError, selectLeadId, selectLeadType, selectLoading, selectPipelineId, selectStageId, selectStageName, selectStageOrder, selectState, selectUserId, selectCloseStatus, selectSetupInitial, selectSetupPayment } from "../redux/accountSlice";
 import { setAddress, setCity, setState, setZip, setFirstName, setLastName, setEmail, setPhone, setLeadId, setLeadType, setPipelineId, setSource, setStageId, setStageName, setStageOrder, setUserId, setCloseStatus, setSetupInitial, setSetupPayment } from "../redux/accountSlice";
 import usaStates from "../components/form/usaStates";
+import { updateLead } from "../redux/accountSlice";
 
 function Account() {
     const { leadId } = useParams();
@@ -25,7 +26,7 @@ function Account() {
                     <InputText
                         label="First Name"
                         state={useSelector(selectFirstName)}
-                        setState={(e) => dispatch(setFirstName(e))}
+                        setState={(e) => dispatch(updateLead({leadId: leadId, update: {firstName: e}}))}
                         size="medium"
                         required={true}
                     />

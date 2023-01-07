@@ -29,6 +29,21 @@ export const getLead = createAsyncThunk(
     }
 );
 
+export const updateLead = createAsyncThunk(
+    "account/updateLead",
+    async (data, thunkAPI) => {
+        const fieldsToUpdate = Object.keys(data.update)[0];
+        const valueToUpdate = Object.values(data.update)[0];
+        const { update } = data
+        console.log(update)
+        const { leadId } = data;
+        //update the key in the state
+        thunkAPI.dispatch(setField({ key: fieldsToUpdate, value: valueToUpdate}));
+        const response = await axios.put(`http://localhost:4000/leads/update/${leadId}`, update);
+        console.log(response)
+    }
+)
+
 
 const accountSlice = createSlice({
     name: "account",
@@ -112,6 +127,10 @@ const accountSlice = createSlice({
         },
         setSetupInitial(state, action) {
             state.setupInitial = action.payload;
+        },
+        setField(state, action) {
+            const { key, value } = action.payload;
+            state[key] = value;
         }
     },
     extraReducers: {
@@ -149,7 +168,8 @@ export const {
     setStageOrder,
     setCloseStatus,
     setSetupPayment,
-    setSetupInitial
+    setSetupInitial,
+    setField
 } = accountSlice.actions;
 
 export const selectFirstName = (state) => state.account.firstName;

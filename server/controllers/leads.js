@@ -59,9 +59,11 @@ const readLeadController = async (req, res) => {
 
 const updateAccountController = async (req, res) => {
     try {
+        console.log(req.body);
         const fieldsToUpdate = Object.keys(req.body)[0];
         const valueToUpdate = Object.values(req.body)[0];
         const { leadId } = req.params;
+        console.table({fieldsToUpdate, valueToUpdate, leadId})
 
         let newLead;
 
