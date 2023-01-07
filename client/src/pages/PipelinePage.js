@@ -3,11 +3,23 @@ import AppLayout from "../components/layouts/AppLayout"
 import Pipeline from "../components/pipeline/Pipeline"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { selectPipelines } from "../redux/pipelineConfigSlice"
+import { selectIsPipelineLoading } from "../redux/pipelineConfigSlice"
 
 function PipelinePage() {
     const { pipelineId } = useParams()
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
+    const isPipelineLoading = useSelector(selectIsPipelineLoading)
+    const pipelines = useSelector(selectPipelines)
+    
+    let headerText = ""
+    if(pipelines.find(pipeline => pipeline.pipeline_id == parseInt(pipelineId))) {
+        headerText = pipelines.find(pipeline => pipeline.pipeline_id == parseInt(pipelineId)).name
+    } else {
+        headerText = "Loading..."
+    } 
 
     useEffect(() => {
         (async () => {
@@ -19,18 +31,12 @@ function PipelinePage() {
                 console.log(err)
             }
         })()
-    }, [loading])
-
-    const pipelineNames = {
-        1: 'Pipeline 1',
-        2: 'Pipeline 2',
-        3: 'Pipeline 3'
-    }
+    }, [loading, pipelineId])
 
     return (
         <div>
-            <AppLayout headline={pipelineNames[pipelineId]}>
-                {!loading && <Pipeline id={pipelineId} data={data} onUpdate={() => setLoading(true)}/>}
+            <AppLayout headline={headerText}>
+                {!loading && !isPipelineLoading && <Pipeline id={pipelineId} data={data} />}
             </AppLayout>
         </div>
     )
