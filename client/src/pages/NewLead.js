@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { setFirstName, setLastName, setAddress, setCity, setState, setZip, setEmail, setPhone, setSource, createLead, resetForm, setUserId } from "../redux/leadSlice"
 import { selectFirstName, selectLastName, selectAddress, selectCity, selectState, selectZip, selectEmail, selectPhone, selectLeadType, selectSource, selectUserId } from "../redux/leadSlice"
 import { useNavigate } from "react-router-dom"
+import usaStates from "../components/form/usaStates"
 
 function NewLeadPage() {
     const dispatch = useDispatch()
@@ -32,9 +33,7 @@ function NewLeadPage() {
         { value: "linkedin", label: "LinkedIn" }
     ]
 
-    let states = [ 'VA', 'MD', 'DC', 'WV', 'DE', 'PA', 'NY', 'NJ', 'CT', 'MA', 'NH', 'ME', 'VT', 'RI', 'NC', 'SC', 'GA', 'FL', 'OH', 'MI', 'IN', 'KY', 'TN', 'AL', 'MS', 'AR', 'LA', 'TX', 'OK', 'KS', 'MO', 'IA', 'MN', 'WI', 'IL', 'NE', 'SD', 'ND', 'MT', 'WY', 'CO', 'NM', 'AZ', 'UT', 'ID', 'WA', 'OR', 'CA', 'NV', 'AK', 'HI']
-    //refactor states to be an array of objects with value and label properties
-    states = states.map(state => { return { value: state, label: state } })
+    
 
     const salespeople = [{ label: "Me", value: 1 }, { label: "Steve Smith", value: 2 }, { label: "John Doe", value: 3 }, { label: "Jane Doe", value: 4 }] 
 
@@ -50,7 +49,7 @@ function NewLeadPage() {
                         { type: "text", name: "lastName", placeholder: "Last Name", value: lastName, onChange: (event) => dispatch(setLastName(event.target.value)) },
                         { type: "text", name: "address", placeholder: "Address", value: address, onChange: (event) => dispatch(setAddress(event.target.value)) },
                         { type: "text", name: "city", placeholder: "City", value: city, onChange: (event) => dispatch(setCity(event.target.value)) },
-                        { type: "singleSelect", name: "state", options: states, placeholder: "State", value: state, onChange: (event) => dispatch(setState(event.target.value)) },
+                        { type: "singleSelect", name: "state", options: usaStates, placeholder: "State", value: state, onChange: (event) => dispatch(setState(event.target.value)) },
                         { type: "text", name: "zip", placeholder: "Zip", value: zip, onChange: (event) => dispatch(setZip(event.target.value)) },
                         { type: "text", name: "email", placeholder: "Email", value: email, onChange: (event) => dispatch(setEmail(event.target.value)) },
                         { type: "text", name: "phone", placeholder: "Phone", value: phone, onChange: (event) => dispatch(setPhone(event.target.value)) },

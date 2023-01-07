@@ -1,7 +1,7 @@
-function InputText({name, label, type = "text", state = "", setState, helpText, size = "medium", required = false, className=""}) {
+function InputSelect({ name, label, state, setState, helpText, size = "medium", required = false, className = "", options = [] }) {
     let styles = "";
-    
-    switch(size) {
+
+    switch (size) {
         case "large":
             styles = "h-16 px-10 w-full bg-midDark text-bone border-b-4 border-primary focus:outline-none focus:border-primary mb-12";
             break;
@@ -14,23 +14,27 @@ function InputText({name, label, type = "text", state = "", setState, helpText, 
     }
 
     styles += ` ${className}`;
-    
+
     return (
         <div className="w-full">
-            {size != 'large' && <label className="text-white">{label}</label> }
+            {size != 'large' && <label className="text-white">{label}</label>}
             <div className="control">
-                <input
+                <select
                     className={`input ${styles}`}
-                    type={type}
                     name={name}
                     value={state}
                     onChange={e => setState(e.target.value)}
                     required={required}
                     placeholder={helpText}
-                />
+                >
+                    {options.map((option, index) => {
+                        return <option key={index} value={option.value}>{option.label}</option>
+                    }
+                    )}
+                </select>
             </div>
         </div>
-    );
+    )
 }
 
-export default InputText;
+export default InputSelect;

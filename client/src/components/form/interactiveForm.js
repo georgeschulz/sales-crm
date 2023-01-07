@@ -34,8 +34,13 @@ function InteractiveForm({ formElements, onSubmit, onReset }) {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault()
-      advancePosition()
+      if(position < formElements.length - 1) {
+        event.preventDefault()
+        advancePosition()
+      } else {
+        event.preventDefault()
+        handleSubmit(event)
+      }
     }
 
     if (event.key == 'Tab') {
