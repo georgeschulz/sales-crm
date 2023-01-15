@@ -35,12 +35,10 @@ export const updateLead = createAsyncThunk(
         const fieldsToUpdate = Object.keys(data.update)[0];
         const valueToUpdate = Object.values(data.update)[0];
         const { update } = data
-        console.log(update)
         const { leadId } = data;
         //update the key in the state
         thunkAPI.dispatch(setField({ key: fieldsToUpdate, value: valueToUpdate}));
         const response = await axios.put(`http://localhost:4000/leads/update/${leadId}`, update);
-        console.log(response)
     }
 )
 
