@@ -7,7 +7,7 @@ function InputCheckbox({ state, setState, name, label, className = "" }) {
             <input
                 type="checkbox"
                 className={`form-checkbox h-10 w-10 bg-dark accent-primary ${className}`}
-                checked={state}
+                checked={state === true ? true : false}
                 onChange={e => setState(e.target.checked)}
                 name={name}
             />

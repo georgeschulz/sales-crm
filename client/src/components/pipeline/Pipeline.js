@@ -33,7 +33,7 @@ function Pipeline({ id, data, onUpdate }) {
                 hideCardDeleteIcon={true} 
                 style={{ backgroundColor: '#1E1E1E', maxHeight: '600px' }}
                 laneStyle={{ width: '350px', padding: '10px' }}
-                onDataChange={(newData) => console.log('newData', newData)}
+                //onDataChange={}
                 onCardClick={(cardId) => handleCardClick(cardId)}
                 handleDragEnd={(cardId, sourceLaneId, targetLaneId, position, cardDetails) => handleCardLaneChange(cardId, sourceLaneId, targetLaneId)}
             />

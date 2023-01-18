@@ -24,20 +24,18 @@ const pipelineConfigSlice = createSlice({
             state.pipelines = action.payload.data;
         }
     },
-    extraReducers: {
-        [fetchPipelines.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchPipelines.pending, (state, action) => {
             state.isLoading = true;
-            state.error = false;
-        },
-        [fetchPipelines.fulfilled]: (state, action) => {
+        });
+        builder.addCase(fetchPipelines.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.error = false;
-        },
-        [fetchPipelines.rejected]: (state, action) => {
+        });
+        builder.addCase(fetchPipelines.rejected, (state, action) => {
             state.isLoading = false;
             state.error = true;
             state.errorMessage = action.error.message;
-        }
+        });
     }
 });
 

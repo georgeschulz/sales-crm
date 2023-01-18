@@ -1,7 +1,7 @@
 import InteractiveForm from "../components/form/interactiveForm"
 import AppLayout from "../components/layouts/AppLayout"
 import { useSelector, useDispatch } from "react-redux"
-import { setFirstName, setLastName, setAddress, setCity, setState, setZip, setEmail, setPhone, setSource, createLead, resetForm, setUserId } from "../redux/leadSlice"
+import { setFirstName, setLastName, setAddress, setCity, setStateName, setZip, setEmail, setPhone, setSource, createLead, resetForm, setUserId } from "../redux/leadSlice"
 import { selectFirstName, selectLastName, selectAddress, selectCity, selectState, selectZip, selectEmail, selectPhone, selectLeadType, selectSource, selectUserId } from "../redux/leadSlice"
 import { useNavigate } from "react-router-dom"
 import usaStates from "../components/form/usaStates"
@@ -22,8 +22,9 @@ function NewLeadPage() {
     const userId = useSelector(selectUserId)
 
     const handleSubmit = async () => {
-        await dispatch(createLead({ firstName, lastName, address, city, state, zip, email, phone, leadType, source }))
-        navigate('/pipeline/1')
+        const response = await dispatch(createLead({ firstName, lastName, address, city, state, zip, email, phone, leadType, source }))
+        const leadId = response.payload.data.lead_id
+        navigate(`/lead/${leadId}?quoteModalOpen=true`)
     }
 
     const sources = [
@@ -33,9 +34,9 @@ function NewLeadPage() {
         { value: "linkedin", label: "LinkedIn" }
     ]
 
-    
 
-    const salespeople = [{ label: "Me", value: 1 }, { label: "Steve Smith", value: 2 }, { label: "John Doe", value: 3 }, { label: "Jane Doe", value: 4 }] 
+
+    const salespeople = [{ label: "Me", value: 1 }, { label: "Steve Smith", value: 2 }, { label: "John Doe", value: 3 }, { label: "Jane Doe", value: 4 }]
 
     return (
         <AppLayout headline="">
@@ -47,10 +48,7 @@ function NewLeadPage() {
                     formElements={[
                         { type: "text", name: "firstName", placeholder: "First Name", value: firstName, onChange: (event) => dispatch(setFirstName(event.target.value)) },
                         { type: "text", name: "lastName", placeholder: "Last Name", value: lastName, onChange: (event) => dispatch(setLastName(event.target.value)) },
-                        { type: "text", name: "address", placeholder: "Address", value: address, onChange: (event) => dispatch(setAddress(event.target.value)) },
-                        { type: "text", name: "city", placeholder: "City", value: city, onChange: (event) => dispatch(setCity(event.target.value)) },
-                        { type: "singleSelect", name: "state", options: usaStates, placeholder: "State", value: state, onChange: (event) => dispatch(setState(event.target.value)) },
-                        { type: "text", name: "zip", placeholder: "Zip", value: zip, onChange: (event) => dispatch(setZip(event.target.value)) },
+                        { type: "address", name: "address", placeholder: "Address Search", handlers:{ setAddress, setCity, setStateName, setZip}, values: {address, city, state, zip}},
                         { type: "text", name: "email", placeholder: "Email", value: email, onChange: (event) => dispatch(setEmail(event.target.value)) },
                         { type: "text", name: "phone", placeholder: "Phone", value: phone, onChange: (event) => dispatch(setPhone(event.target.value)) },
                         { type: "singleSelect", name: "source", options: sources, placeholder: "Source", value: source, onChange: (event) => dispatch(setSource(event.target.value)) },

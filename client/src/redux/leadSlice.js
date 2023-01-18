@@ -64,7 +64,7 @@ const leadSlice = createSlice({
         setCity: (state, action) => {
             state.city = action.payload;
         },
-        setState: (state, action) => {
+        setStateName: (state, action) => {
             state.state = action.payload;
         },
         setZip: (state, action) => {
@@ -93,21 +93,10 @@ const leadSlice = createSlice({
             state.source = "";
             state.pipelineId = 1;
         }
-    },
-    extraReducers: {
-        [createLead.fulfilled]: (state, action) => {
-            //console.log(action.payload);
-        },
-        [createLead.rejected]: (state, action) => {
-            //console.log(action.payload);
-        },
-        [createLead.pending]: (state, action) => {
-            //console.log(action.payload);
-        }
     }
 });
 
-export const { setFirstName, setLastName, setEmail, setPhone, setAddress, setCity, setState, setZip, setUserId, setLeadType, setSource, resetForm } = leadSlice.actions;
+export const { setFirstName, setLastName, setEmail, setPhone, setAddress, setCity, setStateName, setZip, setUserId, setLeadType, setSource, resetForm } = leadSlice.actions;
 export const selectFirstName = state => state.lead.firstName;
 export const selectLastName = state => state.lead.lastName;
 export const selectEmail = state => state.lead.email;

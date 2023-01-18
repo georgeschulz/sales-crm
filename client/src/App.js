@@ -5,8 +5,17 @@ import Login from './pages/login';
 import PipelinePage from './pages/PipelinePage';
 import NewLeadPage from './pages/NewLead';
 import Account from './pages/account';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getServices } from './redux/servicesSlice';
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getServices(1))
+  }, [])
+
   return (
     <div className="App">
       <Router>

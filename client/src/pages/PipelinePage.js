@@ -33,6 +33,8 @@ function PipelinePage() {
         })()
     }, [loading, pipelineId])
 
+            
+
     return (
         <div>
             <AppLayout headline={headerText}>

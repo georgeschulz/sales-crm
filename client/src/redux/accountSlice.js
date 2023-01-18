@@ -131,19 +131,30 @@ const accountSlice = createSlice({
             state[key] = value;
         }
     },
-    extraReducers: {
-        [getLead.pending]: (state, action) => {
-            state.loading = true;
-            state.error = null;
-        },
-        [getLead.fulfilled]: (state, action) => {
-            state.loading = false;
-            state.error = null;
-        },
-        [getLead.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        }
+    extraReducers: (builder) => {
+        builder
+            .addCase(getLead.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(getLead.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+            })
+            .addCase(getLead.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
+            .addCase(updateLead.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(updateLead.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+            })
+            .addCase(updateLead.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            })
     }
 });
 
