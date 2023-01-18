@@ -1,8 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
 const tomorrowDateString = tomorrow.toISOString().split('T')[0];
+
+export const createTask = createAsyncThunk(
+    "followupModal/createTask",
+    async (data, thunkAPI) => {
+        const { leadId, description, dueDate } = data;
+        const response = await axios.post("http://localhost:4000/task", {
+            leadId,
+            description,
+            dueDate
+        });
+        return response.data;
+    }   
+)
 
 const followupModalSlice = createSlice({
     name: "followupModal",

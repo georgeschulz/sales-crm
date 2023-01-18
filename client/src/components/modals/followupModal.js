@@ -1,12 +1,12 @@
 import { Modal } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { selectShowFolloupModal, selectFollowupModalText, selectFollowupModalDueDate, setFollowupModalDueDate, setFollowupModalText, toggleFollowupModal, selectFollowupModalSelectedDateType, setFollowupModalSelectedDateType } from "../../redux/followupModalSlice";
+import { selectShowFolloupModal, selectFollowupModalText, selectFollowupModalDueDate, setFollowupModalDueDate, setFollowupModalText, toggleFollowupModal, selectFollowupModalSelectedDateType, setFollowupModalSelectedDateType, createTask } from "../../redux/followupModalSlice";
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 import { useEffect } from "react";
-import { selectFirstName, selectLastName } from "../../redux/accountSlice";
+import { selectFirstName, selectLastName, selectLeadId } from "../../redux/accountSlice";
 
 function FollowupModal() {
     const dispatch = useDispatch();
@@ -16,10 +16,20 @@ function FollowupModal() {
     const selectedDateType = useSelector(selectFollowupModalSelectedDateType);
     const firstName = useSelector(selectFirstName);
     const lastName = useSelector(selectLastName);
+    const leadId = useSelector(selectLeadId)
 
     useEffect(() => {
         dispatch(setFollowupModalText(`Followup with ${firstName} ${lastName}`));
     }, [dispatch, firstName, lastName]);
+
+    const handleSubmit = () => {
+        try {
+            dispatch(createTask({ leadId, description: text, dueDate }));
+            dispatch(toggleFollowupModal());
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <Modal
@@ -79,7 +89,7 @@ function FollowupModal() {
                 </div>
                 <div className="mt-4 flex justify-end gap-x-5">
                     <Button variant="outlined" onClick={() => dispatch(toggleFollowupModal())}>Cancel</Button>
-                    <Button variant="contained" onClick={() => dispatch(toggleFollowupModal())} className="ml-4">Save</Button>
+                    <Button variant="contained" onClick={() => handleSubmit()} className="ml-4">Save</Button>
                 </div>
             </div>
         </Modal>
