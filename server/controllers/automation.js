@@ -1,4 +1,11 @@
 const axios = require('axios');
+const { Configuration, OpenAIApi } = require("openai");
+
+const configuration = new Configuration({
+  apiKey: process.env.OPEN_AI_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
 
 const shortenUrl = async (req, res) => {
     try {
@@ -39,7 +46,33 @@ const sendSMS = async (req, res) => {
     }
 }
 
+const writeTitleForDescription = async (req, res) => {
+    try {
+        const { description } = req.body;
+        if(description.length > 0) {
+            const prompt = `Summarize the following task description in a 3 to 8 word title: ${description}`
+            const response = await openai.createCompletion({
+                model: "text-davinci-003",
+                prompt: prompt,
+                temperature: 0.7,
+                max_tokens: 345,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0,
+              });
+            const title = response.data.choices[0].text
+            res.status(200).json({ title, message: "Title written successfully" });
+        } else {
+            res.status(500).json({ message: "Please provide a description" });
+        } 
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ message: "Error writing title", error: err });
+    }
+}
+
 module.exports = {
     shortenUrl,
-    sendSMS
+    sendSMS,
+    writeTitleForDescription
 }

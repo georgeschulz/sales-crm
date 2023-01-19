@@ -18,10 +18,22 @@ export const createTask = createAsyncThunk(
     }   
 )
 
+export const summarizeDescription = createAsyncThunk(
+    "followupModal/summarizeDescription",
+    async (description, thunkAPI) => {
+        const response = await axios.post("http://localhost:4000/automation/write-title", {
+            description
+        });
+
+        return response.data.title;
+    }
+)
+
 const followupModalSlice = createSlice({
     name: "followupModal",
     initialState: {
         show: false,
+        taskTitle: "",
         text: "Followup with client",
         dueDate: tomorrowDateString,
         error: "",
@@ -56,13 +68,20 @@ const followupModalSlice = createSlice({
                 const dateString = today.toISOString().split('T')[0];
                 state.dueDate = dateString;
             }
+        },
+        setTaskTitle: (state, action) => {
+            state.taskTitle = action.payload;
+        },
+        appendToTaskTitle: (state, action) => {
+            state.taskTitle = state.taskTitle + ' '  + action.payload;
         }
     }
 });
 
-export const { toggleFollowupModal, setFollowupModalText, setFollowupModalDueDate, setFollowupModalSelectedDateType } = followupModalSlice.actions;
+export const { toggleFollowupModal, setFollowupModalText, setFollowupModalDueDate, setFollowupModalSelectedDateType, setTaskTitle, appendToTaskTitle} = followupModalSlice.actions;
 export const selectShowFolloupModal = state => state.followupModal.show;
 export const selectFollowupModalText = state => state.followupModal.text;
 export const selectFollowupModalDueDate = state => state.followupModal.dueDate;
 export const selectFollowupModalSelectedDateType = state => state.followupModal.selectedDateType;
+export const selectTaskTitle = state => state.followupModal.taskTitle;
 export default followupModalSlice.reducer;

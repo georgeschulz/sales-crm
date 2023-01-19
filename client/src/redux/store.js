@@ -6,6 +6,8 @@ import accountSlice from "./accountSlice";
 import servicesSlice from "./servicesSlice";
 import proposalPreparationSlice from "./proposalPreparationSlice";
 import followupModalSlice from "./followupModalSlice";
+import messageModalSlice from "./messageModalSlice";
+import userSlice from "./userSlice";
 
 export const store = configureStore({
     reducer: {
@@ -16,5 +18,7 @@ export const store = configureStore({
         services: servicesSlice,
         proposalPreparation: proposalPreparationSlice,
         followupModal: followupModalSlice,
+        messageModal: messageModalSlice,
+        user: userSlice
     },
 });

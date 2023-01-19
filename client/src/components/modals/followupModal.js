@@ -1,6 +1,6 @@
 import { Modal } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { selectShowFolloupModal, selectFollowupModalText, selectFollowupModalDueDate, setFollowupModalDueDate, setFollowupModalText, toggleFollowupModal, selectFollowupModalSelectedDateType, setFollowupModalSelectedDateType, createTask } from "../../redux/followupModalSlice";
+import { selectShowFolloupModal, selectFollowupModalText, selectFollowupModalDueDate, setFollowupModalDueDate, setFollowupModalText, toggleFollowupModal, selectFollowupModalSelectedDateType, setFollowupModalSelectedDateType, createTask, selectTaskTitle, setTaskTitle, summarizeDescription, appendToTaskTitle } from "../../redux/followupModalSlice";
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -17,9 +17,24 @@ function FollowupModal() {
     const firstName = useSelector(selectFirstName);
     const lastName = useSelector(selectLastName);
     const leadId = useSelector(selectLeadId)
+    const taskTitle = useSelector(selectTaskTitle);
+
+    const typeAnswer = (text, currentState, targetInputDispatcher) => {
+        //break the text into an array of words
+        const words = text.split(' ');
+
+        words.forEach((word, index) => {
+            //run the loop every 1000ms
+            setTimeout(() => {
+                //dispatch the action to update the input
+                dispatch(targetInputDispatcher(word));
+            }, 50 * index);
+        });
+    }
 
     useEffect(() => {
         dispatch(setFollowupModalText(`Followup with ${firstName} ${lastName}`));
+        dispatch(setTaskTitle(`Followup with ${firstName} ${lastName}`));
     }, [dispatch, firstName, lastName]);
 
     const handleSubmit = () => {
@@ -28,6 +43,14 @@ function FollowupModal() {
             dispatch(toggleFollowupModal());
         } catch (error) {
             console.log(error);
+        }
+    }
+
+    const handleDescriptionBlur = async () => {
+        if (taskTitle === '') {
+            const title = await dispatch(summarizeDescription(text));
+            //dispatch(setTaskTitle(title.payload));
+            typeAnswer(title.payload, taskTitle, appendToTaskTitle);
         }
     }
 
@@ -57,7 +80,21 @@ function FollowupModal() {
                         onChange={(e) => dispatch(setFollowupModalText(e.target.value))}
                         variant="outlined"
                         fullWidth
+                        onBlur={() => handleDescriptionBlur()}
                     />
+                </div>
+                <div className="mt-4">
+                    <TextField
+                            id="title"
+                            label="Title"
+                            type="text"
+                            value={taskTitle}
+                            onChange={(e) => dispatch(setTaskTitle(e.target.value))}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            className="w-full"
+                        />
                 </div>
                 <div className="mt-4 flex justify-between">
                     <TextField

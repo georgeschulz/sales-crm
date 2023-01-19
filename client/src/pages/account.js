@@ -18,6 +18,8 @@ import QuoteModal from "../components/quoteModal/quoteModal";
 import CircularActionButton from "../components/buttons/circularActionButton";
 import FollowupModal from "../components/modals/followupModal";
 import { toggleFollowupModal } from "../redux/followupModalSlice";
+import MessageModal from "../components/modals/messageModal";
+import { toggleMessageModal } from "../redux/messageModalSlice";
 
 
 function Account() {
@@ -193,10 +195,11 @@ function Account() {
             <div className="flex justify-center w-full gap-x-10">
                 <CircularActionButton onClick={() => dispatch(toggleQuoteModal())}>Quote</CircularActionButton>
                 <CircularActionButton onClick={() => dispatch(toggleFollowupModal())}>Followup</CircularActionButton>
-                <CircularActionButton>Message</CircularActionButton>
+                <CircularActionButton onClick={() => dispatch(toggleMessageModal())}>Message</CircularActionButton>
             </div>
             <QuoteModal />
             <FollowupModal />
+            <MessageModal />
 
         </AppLayout>
     )
