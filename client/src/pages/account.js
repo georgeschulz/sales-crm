@@ -21,6 +21,7 @@ import { toggleFollowupModal, toggleTaskModal } from "../redux/taskModalSlice";
 import MessageModal from "../components/modals/messageModal";
 import { toggleMessageModal } from "../redux/messageModalSlice";
 import LeadDetail from "../components/prebuiltFields/leadDetail";
+import Automation from "../components/automation/automation";
 
 
 function Account() {
@@ -31,6 +32,15 @@ function Account() {
     const selectedQuote = useSelector(selectSelectedQuote);
     const query = new URLSearchParams(window.location.search);
     const quoteModalOpen = query.get("quoteModalOpen");
+    const firstName = useSelector(selectFirstName);
+    const lastName = useSelector(selectLastName);
+    const address = useSelector(selectAddress);
+    const city = useSelector(selectCity);
+    const state = useSelector(selectState);
+    const zip = useSelector(selectZip);
+    const email = useSelector(selectEmail);
+    const phone = useSelector(selectPhone);
+    const source = useSelector(selectSource);
 
     useEffect(() => {
         dispatch(getLead(leadId));
@@ -59,6 +69,8 @@ function Account() {
                             <CircularActionButton onClick={() => dispatch(toggleFollowupModal())}>Followup</CircularActionButton>
                             <CircularActionButton onClick={() => dispatch(toggleMessageModal())}>Message</CircularActionButton>
                             <CircularActionButton onClick={() => dispatch(toggleTaskModal())}>Task </CircularActionButton>
+                            <CircularActionButton onClick={() => Automation.addToPestPac({fname: firstName, lname: lastName, email, phone, address, city, state, zip, source})}>Add to PestPac</CircularActionButton>
+                            <CircularActionButton onClick={() => Automation.schedule(address, city, state, zip) }>Schedule</CircularActionButton>
                         </div>
                     </div>
                 </aside>
