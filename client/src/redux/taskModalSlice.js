@@ -29,20 +29,26 @@ export const summarizeDescription = createAsyncThunk(
     }
 )
 
-const followupModalSlice = createSlice({
+const taskModalSlice = createSlice({
     name: "followupModal",
     initialState: {
         show: false,
         taskTitle: "",
-        text: "Followup with client",
+        text: "",
         dueDate: tomorrowDateString,
         error: "",
         loading: false,
-        selectedDateType: null
+        selectedDateType: null,
+        modalType: 'followup'
     },
     reducers: {
         toggleFollowupModal: (state, action) => {
             state.show = !state.show;
+            state.modalType = 'followup'
+        },
+        toggleTaskModal: (state, action) => {
+            state.show = !state.show;
+            state.modalType = 'task'
         },
         setFollowupModalText: (state, action) => {
             state.text = action.payload;
@@ -74,14 +80,18 @@ const followupModalSlice = createSlice({
         },
         appendToTaskTitle: (state, action) => {
             state.taskTitle = state.taskTitle + ' '  + action.payload;
+        },
+        setModalType: (state, action) => {
+            state.modalType = action.payload;
         }
     }
 });
 
-export const { toggleFollowupModal, setFollowupModalText, setFollowupModalDueDate, setFollowupModalSelectedDateType, setTaskTitle, appendToTaskTitle} = followupModalSlice.actions;
-export const selectShowFolloupModal = state => state.followupModal.show;
-export const selectFollowupModalText = state => state.followupModal.text;
-export const selectFollowupModalDueDate = state => state.followupModal.dueDate;
-export const selectFollowupModalSelectedDateType = state => state.followupModal.selectedDateType;
-export const selectTaskTitle = state => state.followupModal.taskTitle;
-export default followupModalSlice.reducer;
+export const { toggleFollowupModal, setFollowupModalText, setFollowupModalDueDate, setFollowupModalSelectedDateType, setTaskTitle, appendToTaskTitle, setModalType, toggleTaskModal } = taskModalSlice.actions;
+export const selectShowFolloupModal = state => state.taskModal.show;
+export const selectFollowupModalText = state => state.taskModal.text;
+export const selectFollowupModalDueDate = state => state.taskModal.dueDate;
+export const selectFollowupModalSelectedDateType = state => state.taskModal.selectedDateType;
+export const selectTaskTitle = state => state.taskModal.taskTitle;
+export const selectModalType = state => state.taskModal.modalType;
+export default taskModalSlice.reducer;

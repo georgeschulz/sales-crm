@@ -1,6 +1,6 @@
 import { Modal } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { selectShowFolloupModal, selectFollowupModalText, selectFollowupModalDueDate, setFollowupModalDueDate, setFollowupModalText, toggleFollowupModal, selectFollowupModalSelectedDateType, setFollowupModalSelectedDateType, createTask, selectTaskTitle, setTaskTitle, summarizeDescription, appendToTaskTitle } from "../../redux/followupModalSlice";
+import { selectShowFolloupModal, selectFollowupModalText, selectFollowupModalDueDate, setFollowupModalDueDate, setFollowupModalText, toggleFollowupModal, selectFollowupModalSelectedDateType, setFollowupModalSelectedDateType, createTask, selectTaskTitle, setTaskTitle, summarizeDescription, appendToTaskTitle, selectModalType } from "../../redux/taskModalSlice";
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -8,7 +8,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import { useEffect } from "react";
 import { selectFirstName, selectLastName, selectLeadId } from "../../redux/accountSlice";
 
-function FollowupModal() {
+function TaskModal() {
     const dispatch = useDispatch();
     const show = useSelector(selectShowFolloupModal);
     const text = useSelector(selectFollowupModalText);
@@ -18,6 +18,7 @@ function FollowupModal() {
     const lastName = useSelector(selectLastName);
     const leadId = useSelector(selectLeadId)
     const taskTitle = useSelector(selectTaskTitle);
+    const type = useSelector(selectModalType);
 
     const typeAnswer = (text, currentState, targetInputDispatcher) => {
         //break the text into an array of words
@@ -33,9 +34,14 @@ function FollowupModal() {
     }
 
     useEffect(() => {
-        dispatch(setFollowupModalText(`Followup with ${firstName} ${lastName}`));
-        dispatch(setTaskTitle(`Followup with ${firstName} ${lastName}`));
-    }, [dispatch, firstName, lastName]);
+        if(type == 'followup') {
+            dispatch(setFollowupModalText(`Followup with ${firstName} ${lastName}`));
+            dispatch(setTaskTitle(`Followup with ${firstName} ${lastName}`));
+        } else {
+            dispatch(setFollowupModalText(''))
+            dispatch(setTaskTitle(''))
+        }
+    }, [dispatch, firstName, lastName, type]);
 
     const handleSubmit = () => {
         try {
@@ -63,7 +69,7 @@ function FollowupModal() {
         >
             <div className="bg-white pl-8 p-6 pt-8 pb-10 w-1/3 absolute" style={{ 'minWidth': '640px', left: '50%', top: '25%', transform: 'translate(-50%, -25%)' }}>
                 <div className="flex justify-between">
-                    <h2 className="text-2xl font-bold">Create Followup</h2>
+                    <h2 className="text-2xl font-bold">Create {type === 'followup' ? "Followup" : "Task"}</h2>
                     <button onClick={() => dispatch(toggleFollowupModal())}>
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -135,4 +141,4 @@ function FollowupModal() {
     )
 }
 
-export default FollowupModal;
+export default TaskModal;

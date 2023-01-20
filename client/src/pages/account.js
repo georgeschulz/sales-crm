@@ -16,8 +16,8 @@ import Modal from '@mui/material/Modal';
 import { selectSelectedQuote } from "../redux/servicesSlice";
 import QuoteModal from "../components/quoteModal/quoteModal";
 import CircularActionButton from "../components/buttons/circularActionButton";
-import FollowupModal from "../components/modals/followupModal";
-import { toggleFollowupModal } from "../redux/followupModalSlice";
+import TaskModal from "../components/modals/taskModal";
+import { toggleFollowupModal, toggleTaskModal } from "../redux/taskModalSlice";
 import MessageModal from "../components/modals/messageModal";
 import { toggleMessageModal } from "../redux/messageModalSlice";
 import LeadDetail from "../components/prebuiltFields/leadDetail";
@@ -58,6 +58,7 @@ function Account() {
                             <CircularActionButton onClick={() => dispatch(toggleQuoteModal())}>Quote</CircularActionButton>
                             <CircularActionButton onClick={() => dispatch(toggleFollowupModal())}>Followup</CircularActionButton>
                             <CircularActionButton onClick={() => dispatch(toggleMessageModal())}>Message</CircularActionButton>
+                            <CircularActionButton onClick={() => dispatch(toggleTaskModal())}>Task </CircularActionButton>
                         </div>
                     </div>
                 </aside>
@@ -65,7 +66,7 @@ function Account() {
 
 
             <QuoteModal />
-            <FollowupModal />
+            <TaskModal />
             <MessageModal />
 
         </AppLayout>

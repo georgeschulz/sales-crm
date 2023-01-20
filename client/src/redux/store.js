@@ -5,8 +5,8 @@ import pipelineConfigSlice from "./pipelineConfigSlice";
 import accountSlice from "./accountSlice";
 import servicesSlice from "./servicesSlice";
 import proposalPreparationSlice from "./proposalPreparationSlice";
-import followupModalSlice from "./followupModalSlice";
 import messageModalSlice from "./messageModalSlice";
+import taskModalSlice from "./taskModalSlice";
 import userSlice from "./userSlice";
 
 export const store = configureStore({
@@ -17,8 +17,8 @@ export const store = configureStore({
         account: accountSlice,
         services: servicesSlice,
         proposalPreparation: proposalPreparationSlice,
-        followupModal: followupModalSlice,
         messageModal: messageModalSlice,
-        user: userSlice
+        user: userSlice,
+        taskModal: taskModalSlice
     },
 });
