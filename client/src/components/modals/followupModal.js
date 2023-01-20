@@ -72,7 +72,7 @@ function FollowupModal() {
                 </div>
                 <div className="mt-4">
                     <TextField
-                        id="outlined-multiline-static"
+                        id="followup-description"
                         label="Description"
                         multiline
                         rows={4}
@@ -81,6 +81,8 @@ function FollowupModal() {
                         variant="outlined"
                         fullWidth
                         onBlur={() => handleDescriptionBlur()}
+                        autoFocus
+                        onFocus={(e) => e.target.select()}
                     />
                 </div>
                 <div className="mt-4">

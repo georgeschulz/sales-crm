@@ -16,7 +16,7 @@ function Header() {
     }, [dispatch])
 
     return (
-        <div className="flex justify-between mb-12">
+        <div className="flex justify-between border-b border-b-zinc-700 bg-black text-white px-20 py-4">
             <h2 className="text-2xl font-bold">
                 <Link to="/pipeline/1">Fast Pest Estimates</Link>
             </h2>

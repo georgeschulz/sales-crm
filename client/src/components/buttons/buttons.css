@@ -21,3 +21,20 @@
         transform: scale(1);
     }
 }
+
+/**When I hover over .action-button, make the child element have a padding-left of 20px and a transition of 0.5s. */
+.action-button:hover div {
+    padding-left: 35px;
+    transition: 0.5s;
+    background-color: #1E1E1E;
+    border: 1px solid #919191;
+}
+
+.action-button:hover .hidden-icon-til-hover {
+    display: inline-block;
+    transition: 0.5s;
+}
+
+.hidden-icon-til-hover {
+    display: none;
+}

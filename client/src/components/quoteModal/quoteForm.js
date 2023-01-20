@@ -51,6 +51,7 @@ function QuoteForm({ service }) {
                             onChange={handleSelectChange}
                             value={results[field.name] ? results[field.name] : ""}
                             key={field.field_id}
+                            autoFocus={true}
                         >
                             {field.options.map(option => {
                                 return (

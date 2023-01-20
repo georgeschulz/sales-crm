@@ -61,7 +61,7 @@ function MessageModal() {
                     </button>
                 </div>
                 <div className="mt-4">
-                    <FormControl fullwidth="true">
+                    <FormControl fullwidth="true" autoFocus>
                         <InputLabel id="demo-simple-select-label">Message Template</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
@@ -70,6 +70,7 @@ function MessageModal() {
                             label="Message Template"
                             onChange={handleSelectChange}
                             style={{ 'minWidth': '590px' }}
+                            autoFocus
                         >
                             {MessageTemplates.templates.map((template, index) => {
                                 return (
