@@ -8,7 +8,7 @@ const userSlice = createSlice({
         businessName: "Better Termite & Pest Control",
         email: "",
         role: "",
-        id: "",
+        id: 1,
     },
     reducers: {
         setFirstName: (state, action) => {
@@ -44,6 +44,6 @@ export const selectRepFirstName = state => state.user.firstName;
 export const selectRepLastName = state => state.user.lastName;
 export const selectRepEmail = state => state.user.email;
 export const selectRole = state => state.user.role;
-export const selectId = state => state.user.id;
+export const selectUserId = state => state.user.id;
 export const selectBusinessName = state => state.user.businessName;
 export default userSlice.reducer;

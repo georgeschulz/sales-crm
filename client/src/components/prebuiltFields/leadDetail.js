@@ -25,7 +25,7 @@ function LeadDetail({ leadId }) {
                 <InputText
                     label="Last Name"
                     state={useSelector(selectLastName)}
-                    setState={(e) => dispatch(setLastName(e))}
+                    setState={(e) => dispatch(updateLead({ leadId: leadId, update: { lastName: e } }))}
                     size="medium"
                     required={true}
                 />
@@ -34,7 +34,7 @@ function LeadDetail({ leadId }) {
                 <InputSelect
                     label="Lead Type"
                     state={useSelector(selectLeadType)}
-                    setState={(e) => dispatch(setLeadType(e))}
+                    setState={(e) => dispatch(updateLead({ leadId: leadId, update: { leadType: e } }))}
                     size="medium"
                     required={true}
                     options={[{ label: 'Lead', value: 'lead' }, { label: 'Opportunity', value: 'opportunity' }]}

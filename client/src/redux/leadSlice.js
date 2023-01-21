@@ -70,7 +70,7 @@ const leadSlice = createSlice({
         setZip: (state, action) => {
             state.zip = action.payload;
         },
-        setUserId: (state, action) => {
+        setLeadUserId: (state, action) => {
             state.userId = action.payload;
         },
         setLeadType: (state, action) => {
@@ -96,7 +96,7 @@ const leadSlice = createSlice({
     }
 });
 
-export const { setFirstName, setLastName, setEmail, setPhone, setAddress, setCity, setStateName, setZip, setUserId, setLeadType, setSource, resetForm } = leadSlice.actions;
+export const { setFirstName, setLastName, setEmail, setPhone, setAddress, setCity, setStateName, setZip, setLeadUserId, setLeadType, setSource, resetForm } = leadSlice.actions;
 export const selectFirstName = state => state.lead.firstName;
 export const selectLastName = state => state.lead.lastName;
 export const selectEmail = state => state.lead.email;
@@ -105,7 +105,7 @@ export const selectAddress = state => state.lead.address;
 export const selectCity = state => state.lead.city;
 export const selectState = state => state.lead.state;
 export const selectZip = state => state.lead.zip;
-export const selectUserId = state => state.lead.userId;
+export const selectLeadUserId = state => state.lead.userId;
 export const selectLeadType = state => state.lead.leadType;
 export const selectSource = state => state.lead.source;
 export default leadSlice.reducer;

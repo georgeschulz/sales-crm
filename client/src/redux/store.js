@@ -8,6 +8,7 @@ import proposalPreparationSlice from "./proposalPreparationSlice";
 import messageModalSlice from "./messageModalSlice";
 import taskModalSlice from "./taskModalSlice";
 import userSlice from "./userSlice";
+import businessSlice from "./businessSlice";
 
 export const store = configureStore({
     reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
         proposalPreparation: proposalPreparationSlice,
         messageModal: messageModalSlice,
         user: userSlice,
-        taskModal: taskModalSlice
+        taskModal: taskModalSlice,
+        business: businessSlice
     },
 });

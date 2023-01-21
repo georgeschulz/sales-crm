@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import NavButton from "../buttons/navButton";
-import menuButton from '../../assets/menu-icon.png'
 import { useDispatch, useSelector } from "react-redux";
 import { selectPipelines } from "../../redux/pipelineConfigSlice";
 import { useEffect } from "react";
@@ -38,9 +37,6 @@ function Header() {
                     </li>}
                     <li className="mr-6">
                         <NavButton text="New Lead" onClick={() => navigate('/lead/new')} />
-                    </li>
-                    <li className="mr-6">
-                        <img src={menuButton} alt="menu button" className="w-8 h-7" />
                     </li>
                 </ul>
             </nav>

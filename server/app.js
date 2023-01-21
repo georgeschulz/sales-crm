@@ -9,6 +9,7 @@ const leadRouter = require('./routes/leads');
 const servicesRouter = require('./routes/services');
 const automationRouter = require('./routes/automation');
 const taskRouter = require('./routes/task');
+const businessRouter = require('./routes/business');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -25,6 +26,7 @@ app.use('/leads', cors({ credentials: true, origin: 'http://localhost:3000' }), 
 app.use('/services', cors({ credentials: true, origin: 'http://localhost:3000' }), servicesRouter);
 app.use('/automation', cors({ credentials: true, origin: 'http://localhost:3000' }), automationRouter);
 app.use('/task', cors({ credentials: true, origin: 'http://localhost:3000' }), taskRouter);
+app.use('/business', cors({ credentials: true, origin: 'http://localhost:3000' }), businessRouter);
 
 app.use(express.static('../client/build'));
 app.listen(port, () => console.log(`App listening on port ${port}!`));
