@@ -1,13 +1,14 @@
 import InteractiveForm from "../components/form/interactiveForm"
 import AppLayout from "../components/layouts/AppLayout"
 import { useSelector, useDispatch } from "react-redux"
-import { setFirstName, setLastName, setAddress, setCity, setStateName, setZip, setEmail, setPhone, setSource, createLead, resetForm, setLeadUserId } from "../redux/leadSlice"
+import { setFirstName, setLastName, setAddress, setCity, setStateName, setZip, setEmail, setPhone, setSource, createLead, resetForm, setLeadUserId, selectPipelineId, setPipelineId } from "../redux/leadSlice"
 import { selectFirstName, selectLastName, selectAddress, selectCity, selectState, selectZip, selectEmail, selectPhone, selectLeadType, selectSource, selectLeadUserId } from "../redux/leadSlice"
 import { useNavigate } from "react-router-dom"
 import usaStates from "../components/form/usaStates"
 import { useEffect } from "react"
 import { selectUserId } from "../redux/accountSlice"
-import { selectSalespeople, selectSourceList } from "../redux/businessSlice"
+import { getBusinessDetails, selectSalespeople, selectSourceList } from "../redux/businessSlice"
+import { selectPipelineSelectList } from "../redux/pipelineConfigSlice"
 
 function NewLeadPage() {
     const dispatch = useDispatch()
@@ -26,20 +27,23 @@ function NewLeadPage() {
     const currentUserId = useSelector(selectUserId)
     const sources = useSelector(selectSourceList)
     const salespeople = useSelector(selectSalespeople)
+    const pipelineList = useSelector(selectPipelineSelectList)
+    const selectedPipeline = useSelector(selectPipelineId);
 
     useEffect(() => {
         dispatch(setLeadUserId(currentUserId))
+        dispatch(getBusinessDetails())
         console.log(sources)
     }, [currentUserId, dispatch])
 
 
     const handleSubmit = async () => {
         console.table({ firstName, lastName, address, city, state, zip, email, phone, leadType, source, userId: userLeadId })
-        const response = await dispatch(createLead({ firstName, lastName, address, city, state, zip, email, phone, leadType, source, userLeadId }))
+        const response = await dispatch(createLead({ firstName, lastName, address, city, state, zip, email, phone, leadType, source, userLeadId, pipelineId: selectedPipeline }))
         const leadId = response.payload.data.lead_id
         navigate(`/lead/${leadId}?quoteModalOpen=true`)
     }
-    
+
     return (
         <AppLayout headline="">
             <div className="w-full flex justify-center flex-wrap">
@@ -53,6 +57,7 @@ function NewLeadPage() {
                         { type: "address", name: "address", placeholder: "Address Search", handlers:{ setAddress, setCity, setStateName, setZip}, values: {address, city, state, zip}},
                         { type: "text", name: "email", placeholder: "Email", value: email, onChange: (event) => dispatch(setEmail(event.target.value)) },
                         { type: "text", name: "phone", placeholder: "Phone", value: phone, onChange: (event) => dispatch(setPhone(event.target.value)) },
+                        { type: "singleSelect", name: "pipeline", options: pipelineList, placeholder: "Pipeline", value: selectedPipeline, onChange: (event) => dispatch(setPipelineId(event.target.value)) },
                         { type: "singleSelect", name: "source", options: sources, placeholder: "Source", value: source, onChange: (event) => dispatch(setSource(event.target.value)) },
                         { type: "singleSelect", name: "salesperson", options: salespeople, placeholder: "Salesperson", value: userLeadId, onChange: (event) => dispatch(setLeadUserId(event.target.value)) }
                     ]}

@@ -43,7 +43,7 @@ const leadSlice = createSlice({
         userId: null,
         leadType: "lead",
         source: "Google",
-        pipelineId: 1
+        pipelineId: null
     },
     reducers: {
         setFirstName: (state, action) => {
@@ -92,11 +92,14 @@ const leadSlice = createSlice({
             state.leadType = "lead";
             state.source = "";
             state.pipelineId = 1;
+        },
+        setPipelineId: (state, action) => {
+            state.pipelineId = action.payload;
         }
     }
 });
 
-export const { setFirstName, setLastName, setEmail, setPhone, setAddress, setCity, setStateName, setZip, setLeadUserId, setLeadType, setSource, resetForm } = leadSlice.actions;
+export const { setFirstName, setLastName, setEmail, setPhone, setAddress, setCity, setStateName, setZip, setLeadUserId, setLeadType, setSource, resetForm, setPipelineId } = leadSlice.actions;
 export const selectFirstName = state => state.lead.firstName;
 export const selectLastName = state => state.lead.lastName;
 export const selectEmail = state => state.lead.email;
@@ -108,4 +111,5 @@ export const selectZip = state => state.lead.zip;
 export const selectLeadUserId = state => state.lead.userId;
 export const selectLeadType = state => state.lead.leadType;
 export const selectSource = state => state.lead.source;
+export const selectPipelineId = state => state.lead.pipelineId;
 export default leadSlice.reducer;

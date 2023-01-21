@@ -42,4 +42,10 @@ const pipelineConfigSlice = createSlice({
 export const { setPipelines } = pipelineConfigSlice.actions;
 export const selectPipelines = state => state.pipelineConfig.pipelines;
 export const selectIsPipelineLoading = state => state.pipelineConfig.isLoading;
+export const selectPipelineSelectList = state => state.pipelineConfig.pipelines.map(pipeline => {
+    return {
+        value: pipeline.pipeline_id,
+        label: pipeline.name
+    }
+});
 export default pipelineConfigSlice.reducer;
