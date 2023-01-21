@@ -4,7 +4,7 @@ import InteractiveFormAddress from "./interactiveFormAddress";
 
 function InteractiveFormInput({ type, name, value, onChange, placeholder, handleClick, index, isFocused, options=[], handlers={}, values={} }) {
   return (
-    <div className={isFocused ? "opacity-100" : "opacity-50"}>
+    <div className={isFocused ? "opacity-100" : "opacity-50"} onClick={() => handleClick(index)}>
       <label className="text-white text-lg font-semibold">{placeholder}</label>
       {type === 'text' && (
         <InteractiveSingleLine

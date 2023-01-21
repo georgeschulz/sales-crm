@@ -1,7 +1,7 @@
 import Autocomplete from "react-google-autocomplete";
 import { useDispatch } from "react-redux";
 
-function InteractiveFormAddress({name, index, setAddress, setCity, setStateName, setZip}) {
+function InteractiveFormAddress({ name, index, setAddress, setCity, setStateName, setZip }) {
     const dispatch = useDispatch();
 
     const handlePlaceSelect = (place) => {
@@ -27,38 +27,12 @@ function InteractiveFormAddress({name, index, setAddress, setCity, setStateName,
                 onPlaceSelected={handlePlaceSelect}
                 className="h-16 px-10 w-full bg-midDark text-bone focus:border-b-4 focus:outline-none focus:border-primary mb-12"
                 options={{
-                    componentRestrictions: {country: "us"},
+                    componentRestrictions: { country: "us" },
                     types: ['address']
                 }}
                 id={'input-' + index}
             />
         </div>
     )
-    /**
-     * const [autocomplete, setAutocomplete] = useState(null);
-    useEffect(() => {
-        setAutocomplete(new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {}))
-        autocomplete.addListener('place_changed', handlePlaceSelect);
-    }, []);
-
-    const handlePlaceSelect = () => {
-        const addressObject = autocomplete.getPlace();
-        const address = addressObject.address_components;
-        console.log(addressObject);
-    }
-
-    return (
-        <div>
-            <input 
-                id="autocomplete"
-                className="h-16 px-10 w-full bg-midDark text-bone focus:border-b-4 focus:outline-none focus:border-primary mb-12"
-                type="text"
-                name={name}
-                placeholder={placeholder}
-            />
-        </div>
-    )
-     */
 }
-
 export default InteractiveFormAddress;

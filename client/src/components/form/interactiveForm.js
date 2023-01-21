@@ -74,7 +74,7 @@ function InteractiveForm({ formElements, onSubmit, onReset }) {
             position={position}
             index={index}
             isFocused={index === position}
-            handleClick={() => handleInputClick(index)}
+            handleClick={handleInputClick}
             options={element.options}
             handlers={element.handlers}
             values={element.values}
